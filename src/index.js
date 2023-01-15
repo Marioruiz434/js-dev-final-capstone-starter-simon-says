@@ -84,10 +84,9 @@ function startButtonHandler() {
   // TODO: Write your code here.
   setLevel();
   
-  roundCount = 1
+  roundCount++
 
   startButton.classList.add("hidden")
-  startButton.classList.remove("start-button", "js-start-button")
 
   statusSpan.classList.remove("hidden")
 
@@ -209,7 +208,6 @@ function setText(element, text) {
 function activatePad(color) {
   // TODO: Write your code here.
   const pad = pads.find((pad) => pad.color === color);
-  console.log(pad)
   pad.selector.classList.add("activated");
   pad.sound.play();
   setTimeout(()=> pad.selector.classList.remove("activated"), 500);
@@ -268,7 +266,7 @@ function activatePads(sequence) {
   statusSpan.innerText = "The computer's turn..."
   statusSpan.classList.remove("hidden")
   heading.innerHTML = `Round ${roundCount} of ${maxRoundCount}`
-  computerSequence.push(getRandomItem)
+  computerSequence.push(getRandomItem(["red", "green", "blue", "yellow"]))
   activatePads(computerSequence)
   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
 }
