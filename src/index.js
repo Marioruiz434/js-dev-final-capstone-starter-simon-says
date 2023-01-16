@@ -82,7 +82,7 @@ padContainer.addEventListener("click", padHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
-  setLevel();
+  setLevel()
   
   roundCount++
 
@@ -113,11 +113,11 @@ function startButtonHandler() {
  * 6. Return the `color` variable as the output
  */
 function padHandler(event) {
-  const { color } = event.target.dataset;
-  if (!color) return;
- let pad = pads.find((pad)=> pad.color === color)
- pad.sound.play()
- checkPress(color)
+  const { color } = event.target.dataset
+  if (!color) return
+  const pad = pads.find((element) => element.color === color)
+  pad.sound.play()
+  checkPress(color)
   // TODO: Write your code here.
   return color;
 }
@@ -149,12 +149,16 @@ function padHandler(event) {
  */
 function setLevel(level = 1) {
   if(level == 1 || null) {
+    maxRoundCount = 8
     return 8;
   } else if(level == 2) {
+    maxRoundCount = 14
     return 14;
   } else if(level == 3) {
+    maxRoundCount = 20
     return 20;
   } else if(level == 4) {
+    maxRoundCount = 31
     return 31;
   } else {
     return "Please enter level 1, 2, 3, or 4"
@@ -207,7 +211,7 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
-  const pad = pads.find((pad) => pad.color === color);
+  const pad = pads.find((element) => element.color === color);
   pad.selector.classList.add("activated");
   pad.sound.play();
   setTimeout(()=> pad.selector.classList.remove("activated"), 500);
@@ -230,11 +234,11 @@ function activatePad(color) {
 function activatePads(sequence) {
   // TODO: Write your code here.
   let time = 0
-  sequence.forEach(() => {
-    time =+ 600
-    setTimeout(activatePad, time)
-
-  })
+  sequence.forEach((color) => {
+    time += 600
+    setTimeout(activatePad(color), time)
+    console.log(time)
+    })
 }
 
 /**
@@ -263,9 +267,9 @@ function activatePads(sequence) {
  function playComputerTurn() {
   // TODO: Write your code here.
   padContainer.classList.add("unclickable")
-  statusSpan.innerText = "The computer's turn..."
+  setText(statusSpan, "The computer's turn...")
   statusSpan.classList.remove("hidden")
-  heading.innerHTML = `Round ${roundCount} of ${maxRoundCount}`
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
   computerSequence.push(getRandomItem(["red", "green", "blue", "yellow"]))
   activatePads(computerSequence)
   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
@@ -281,7 +285,11 @@ function activatePads(sequence) {
 function playHumanTurn() {
   // TODO: Write your code here.
   padContainer.classList.remove("unclickable")
-  statusSpan.innerText = `Player's turn:${roundCount} presses left`
+  if(roundCount === 1) {
+    setText(statusSpan, `Player's turn:${roundCount} press left`)
+  } else if (roundCount > 1) {
+    setText(statusSpan, `Player's turn:${roundCount} presses left`)
+  }
 }
 
 /**
@@ -309,11 +317,16 @@ function playHumanTurn() {
 function checkPress(color) {
   // TODO: Write your code here.
   playerSequence.push(color) 
-  let index = color[i]
+  const index = playerSequence.length - 1
   let remainingPresses = computerSequence.length - playerSequence.length
-  statusSpan.innerText = `Player's turn:${remainingPresses} presses left`
-  if (playerSequence[i] !== computerSequence[i]) {
-    resetGame()
+  if (remainingPresses === 1) { 
+    setText(statusSpan, `Player's turn:${remainingPresses} press left`)
+  } else if (remainingPresses > 1) {
+    setText(statusSpan, `Player's turn:${remainingPresses} presses left`)
+  }
+  if (playerSequence[index] !== computerSequence[index]) {
+    setText(statusSpan, `Wrong sequence. You lose.`)
+    setTimeout(resetGame, 1500)
   }
   if (remainingPresses === 0) {
     checkRound()
@@ -340,12 +353,12 @@ function checkRound() {
   // TODO: Write your code here.
   if(playerSequence.length === maxRoundCount) {
     resetGame()
-    statusSpan.innerText = `Congratulations! You win!`
+    setText(statusSpan, `Congratulations! You win!`)
   } else {
     roundCount++
     playerSequence = []
-    statusSpan.innerText = `Nice! Keep going!`
-    setTimeout(playComputerTurn, 1000)
+    setText(statusSpan, `Nice! Keep going!`)
+    setTimeout(playComputerTurn(), 1000)
   }
 }
 
