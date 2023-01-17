@@ -31,7 +31,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
  *
  */
 
- const pads = [
+ let pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
@@ -86,9 +86,9 @@ function startButtonHandler() {
   
   roundCount++
 
-  startButton.classList.add("hidden")
+  startButton.classList.add(`hidden`)
 
-  statusSpan.classList.remove("hidden")
+  statusSpan.classList.remove(`hidden`)
 
   playComputerTurn()
 
@@ -211,10 +211,10 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
-  const pad = pads.find((element) => element.color === color);
-  pad.selector.classList.add("activated");
+  const pad = pads.find((element) => element.color == color);
+  pad.selector.classList.add(`activated`);
   pad.sound.play();
-  setTimeout(()=> pad.selector.classList.remove("activated"), 500);
+  setTimeout(()=> pad.selector.classList.remove(`activated`), 500);
 }
 
 /**
@@ -233,11 +233,9 @@ function activatePad(color) {
 
 function activatePads(sequence) {
   // TODO: Write your code here.
-  let time = 0
-  sequence.forEach((color) => {
-    time += 600
-    setTimeout(activatePad(color), time)
-    console.log(time)
+  sequence.forEach((color, index) => {
+    setTimeout(()=> {
+      activatePad(color)}, (index + 1) * 600)
     })
 }
 
