@@ -31,13 +31,6 @@ let roundCount = 0; // track the number of rounds that have been played so far
  *
  */
 
-// import redSound from "../assets/simon-says-sound-1.mp3"
-
-// import greenSound from "../assets/simon-says-sound-2.mp3"
-
-// import blueSound from "../assets/simon-says-sound-3.mp3"
-
-// import yellowSound from "../assets/simon-says-sound-4.mp3"
 
 
  const pads = [
