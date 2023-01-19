@@ -279,7 +279,7 @@ function activatePads(sequence) {
   setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
   computerSequence.push(getRandomItem(["red", "green", "blue", "yellow"]))
   activatePads(computerSequence)
-  setTimeout(playHumanTurn, (roundCount * 600) + 1000); // 5
+  setTimeout(playHumanTurn, roundCount * 600 + 1000); // 5
 }
 
 /**
@@ -342,8 +342,7 @@ function checkPress(color) {
     setText(statusSpan, `Player's turn:${remainingPresses} presses left`)
   }
   if (playerSequence[index] !== computerSequence[index]) {
-    setText(statusSpan, "Wrong sequence. You lose.")
-    setTimeout(resetGame("Try again"), 2000)
+    resetGame("You lose...Try again");
   } else if (remainingPresses === 0) {
     checkRound()
   }
@@ -370,8 +369,7 @@ function checkPress(color) {
 function checkRound() {
   // TODO: Write your code here.
   if(playerSequence.length === maxRoundCount) {
-    setText(statusSpan, "Congratulations! You win!")
-    setTimeout(resetGame("Can you win again?"), 2000)
+    resetGame("Congratulations, you win!");
   } else {
     roundCount++
     playerSequence = []
