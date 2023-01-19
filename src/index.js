@@ -31,35 +31,35 @@ let roundCount = 0; // track the number of rounds that have been played so far
  *
  */
 
-import redSound from "../assets/simon-says-sound-1.mp3"
+// import redSound from "../assets/simon-says-sound-1.mp3"
 
-import greenSound from "../assets/simon-says-sound-2.mp3"
+// import greenSound from "../assets/simon-says-sound-2.mp3"
 
-import blueSound from "../assets/simon-says-sound-3.mp3"
+// import blueSound from "../assets/simon-says-sound-3.mp3"
 
-import yellowSound from "../assets/simon-says-sound-4.mp3"
+// import yellowSound from "../assets/simon-says-sound-4.mp3"
 
 
  const pads = [
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio(redSound),
+    sound: new Audio("../assets/simon-says-sound-1.mp3"),
   },
   {
     color: "green",
     selector: document.querySelector(".js-pad-green"),
-    sound: new Audio(greenSound),
+    sound: new Audio("../assets/simon-says-sound-2.mp3"),
   },
   {
     color: "blue",
     selector: document.querySelector(".js-pad-blue"),
-    sound: new Audio(blueSound),
+    sound: new Audio("../assets/simon-says-sound-3.mp3"),
   },
   {
     color: "yellow",
     selector: document.querySelector(".js-pad-yellow"),
-    sound: new Audio(yellowSound),
+    sound: new Audio("../assets/simon-says-sound-4.mp3"),
   }
   // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
 ];
@@ -156,6 +156,7 @@ function padHandler(event) {
  * setLevel(8) //> returns "Please enter level 1, 2, 3, or 4";
  *
  */
+
 function setLevel(level = 1) {
   if(level == 1 || null) {
     maxRoundCount = 8
@@ -370,7 +371,7 @@ function checkRound() {
   // TODO: Write your code here.
   if(playerSequence.length === maxRoundCount) {
     setText(statusSpan, "Congratulations! You win!")
-    setTimeout(resetGame("Can you win again?"), 1000)
+    setTimeout(resetGame("Can you win again?"), 2000)
   } else {
     roundCount++
     playerSequence = []
