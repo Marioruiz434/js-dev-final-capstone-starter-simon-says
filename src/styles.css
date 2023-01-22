@@ -140,3 +140,7 @@ h1 {
 .unclickable {
   pointer-events: none;
 }
+
+#confetti-canvas {
+  position: absolute;
+}
